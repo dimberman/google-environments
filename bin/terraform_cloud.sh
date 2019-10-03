@@ -16,7 +16,7 @@ terraform -v
 terraform init
 
 # TODO: add to CI image
-apk add --update  python  curl  which  bash jq
+apk add --update  python  curl  which  bash # jq
 curl -sSL https://sdk.cloud.google.com > /tmp/gcl
 bash /tmp/gcl --install-dir=~/gcloud --disable-prompts > /dev/null 2>&1
 PATH=$PATH:/root/gcloud/google-cloud-sdk/bin
@@ -40,11 +40,13 @@ if [[ "$CLUSTERS" == *$DEPLOYMENT_ID-cluster* ]]; then
   # whitelist our current IP for kube management API
   gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="$(curl icanhazip.com)/32" --zone=us-east4
 
+  export KUBECONFIG=$(pwd)/kubeconfig
   # copy the kubeconfig from the terraform state
-  terraform state pull | jq -r '.resources[] | select(.module == "module.astronomer_cloud") | select(.name == "kubeconfig") | .instances[0].attributes.content' > kubeconfig
+  # terraform state pull | jq -r '.resources[] | select(.module == "module.astronomer_cloud") | select(.name == "kubeconfig") | .instances[0].attributes.content' > kubeconfig
+  gcloud components install beta -q
+  gcloud beta container clusters get-credentials $DEPLOYMENT_ID-cluster --region us-east4 --project $PROJECT
   chmod 755 kubeconfig
   KUBECONFIG_VAR_LINE="-var kubeconfig_path=$(pwd)/kubeconfig"
-  export KUBECONFIG=$(pwd)/kubeconfig
 
   mkdir -p ~/.kube/
   cp $KUBECONFIG ~/.kube/config
