@@ -26,4 +26,5 @@ module "astronomer_cloud" {
 
   worker_node_size = local.worker_node_size
   db_instance_size = local.db_instance_size
+  public_signups   = local.public_signups
 }
