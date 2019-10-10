@@ -26,6 +26,8 @@ steps:
       - success
     repo:
       - astronomer/google-environments
+    branch:
+      - master
 
 - name: notify_staging_updated
   image: plugins/slack
@@ -54,6 +56,8 @@ steps:
       - failure
     repo:
       - astronomer/google-environments
+    branch:
+      - master
 
 - name: terraform_plan_production
   image: sjmiller609/helm-kubectl-terraform:latest
@@ -76,6 +80,8 @@ steps:
       - success
     repo:
       - astronomer/google-environments
+    branch:
+      - master
 
 - name: notify_promotion_production
   image: plugins/slack
@@ -123,6 +129,8 @@ steps:
       - success
     repo:
       - astronomer/google-environments
+    branch:
+      - master
 
 - name: deploy_to_production_force_redeploy
   image: sjmiller609/helm-kubectl-terraform:latest
