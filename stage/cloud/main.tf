@@ -14,13 +14,14 @@ module "astronomer_cloud" {
   lets_encrypt           = false
   base_domain            = var.base_domain
 
-  tls_cert          = data.http.fullchain.body
-  tls_key           = data.http.privkey.body
-  stripe_secret_key = data.http.stripe_secret_key.body
-  stripe_pk         = data.http.stripe_pk.body
-  smtp_uri          = data.http.smtp_uri.body
-  slack_alert_url   = data.http.slack_alert_url.body
-  kubecost_token    = data.http.kubecost_token.body
+  tls_cert              = data.http.fullchain.body
+  tls_key               = data.http.privkey.body
+  stripe_secret_key     = data.http.stripe_secret_key.body
+  stripe_pk             = data.http.stripe_pk.body
+  smtp_uri              = data.http.smtp_uri.body
+  slack_alert_url       = data.http.slack_alert_url.body
+  kubecost_token        = data.http.kubecost_token.body
+  pagerduty_service_key = data.http.pagerduty_service_key.body
 
   slack_alert_channel = var.slack_alert_channel
 

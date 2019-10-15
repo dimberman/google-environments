@@ -84,3 +84,16 @@ data "google_storage_object_signed_url" "kubecost_token" {
 data "http" "kubecost_token" {
   url = data.google_storage_object_signed_url.kubecost_token.signed_url
 }
+
+#####
+# Pager Duty
+#####
+
+data "google_storage_object_signed_url" "pagerduty_service_key" {
+  bucket = "${var.deployment_id}-astronomer-secrets"
+  path   = "pagerduty_service_key.txt"
+}
+
+data "http" "pagerduty_service_key" {
+  url = data.google_storage_object_signed_url.pagerduty_service_key.signed_url
+}
