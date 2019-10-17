@@ -4,12 +4,12 @@
 
 data "google_storage_object_signed_url" "fullchain" {
   bucket = "${var.deployment_id}-astronomer-certificate"
-  path   = "fullchain.pem"
+  path   = "fullchain2.pem"
 }
 
 data "google_storage_object_signed_url" "privkey" {
   bucket = "${var.deployment_id}-astronomer-certificate"
-  path   = "privkey.pem"
+  path   = "privkey2.pem"
 }
 
 # for this to work, the content type in the metadata on the
