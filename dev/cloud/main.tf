@@ -1,7 +1,7 @@
 module "astronomer_cloud" {
 
   source  = "astronomer/astronomer-cloud/google"
-  version = "0.1.643"
+  version = "0.1.649"
 
   deployment_id          = var.deployment_id
   email                  = "steven@astronomer.io"
@@ -17,7 +17,7 @@ module "astronomer_cloud" {
   dns_managed_zone       = "steven-zone"
   enable_velero          = false
   enable_knative         = true
-  tiller_version         = "2.15.0"
+  tiller_version         = "2.15.2"
 
   worker_node_size = local.worker_node_size
   db_instance_size = local.db_instance_size
