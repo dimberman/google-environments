@@ -25,7 +25,8 @@ module "astronomer_cloud" {
 
   slack_alert_channel = var.slack_alert_channel
 
-  worker_node_size = local.worker_node_size
-  db_instance_size = local.db_instance_size
-  public_signups   = local.public_signups
+  worker_node_size      = local.worker_node_size
+  max_worker_node_count = local.max_worker_node_count
+  db_instance_size      = local.db_instance_size
+  public_signups        = local.public_signups
 }
