@@ -228,13 +228,19 @@ fi
 
 if [ $TF_AUTO_APPROVE ]; then
 
-  terraform apply \
-    --auto-approve \
+  terraform plan \
     -var "deployment_id=$DEPLOYMENT_ID" \
     -var "base_domain=$BASE_DOMAIN" \
     $KUBECONFIG_VAR_LINE \
     -lock=false \
-    -input=false
+    -input=false \
+    -out=$PLAN_FILE
+
+  terraform apply \
+    -lock=false \
+    -refresh=false \
+    -input=false \
+    $PLAN_FILE
 
   /tmp/tiller-releases-converter cleanup
   rm ~/.kube/config
