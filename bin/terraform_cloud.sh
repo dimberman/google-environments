@@ -24,6 +24,7 @@ PATH=$PATH:/root/gcloud/google-cloud-sdk/bin
 # Set up gcloud CLI
 gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 gcloud config set project $PROJECT
+gcloud components install beta -q
 
 PLAN_FILE="tfplan"
 
@@ -31,7 +32,6 @@ PLAN_FILE="tfplan"
 # to set up some things in the local environment.
 # The block below is executed except for on the first
 # run of this environment.
-
 
 export ORIGINAL_WHITELIST=""
 # get list of clusters
@@ -50,7 +50,6 @@ if [[ "$CLUSTERS" == *$DEPLOYMENT_ID-cluster* ]]; then
   export KUBECONFIG=$(pwd)/kubeconfig
   # copy the kubeconfig from the terraform state
   # terraform state pull | jq -r '.resources[] | select(.module == "module.astronomer_cloud") | select(.name == "kubeconfig") | .instances[0].attributes.content' > kubeconfig
-  gcloud components install beta -q
   gcloud beta container clusters get-credentials $DEPLOYMENT_ID-cluster --region us-east4 --project $PROJECT
   chmod 755 kubeconfig
   KUBECONFIG_VAR_LINE="-var kubeconfig_path=$(pwd)/kubeconfig"
