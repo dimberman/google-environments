@@ -32,15 +32,19 @@ PLAN_FILE="tfplan"
 # The block below is executed except for on the first
 # run of this environment.
 
-ORIGINAL_WHITELIST="$(gcloud beta container clusters describe $DEPLOYMENT_ID-cluster --region=us-east4  --format="value(masterAuthorizedNetworksConfig.cidrBlocks[].cidrBlock.list())")"
-
+export ORIGINAL_WHITELIST=""
 # get list of clusters
 CLUSTERS="$(gcloud container clusters list --format="value(name)" | tr '\r\n' ' ')"
 KUBECONFIG_VAR_LINE=""
 if [[ "$CLUSTERS" == *$DEPLOYMENT_ID-cluster* ]]; then
 
+  export ORIGINAL_WHITELIST="$(gcloud beta container clusters describe $DEPLOYMENT_ID-cluster --region=us-east4  --format="value(masterAuthorizedNetworksConfig.cidrBlocks[].cidrBlock.list())")"
   # Add our current IP to the whitelist
-  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST},$(curl -4 icanhazip.com)/32" --region=us-east4
+  if [[ "$ORIGINAL_WHITELIST" == "" ]]; then
+    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="$(curl -4 icanhazip.com)/32" --region=us-east4
+  else
+    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST},$(curl -4 icanhazip.com)/32" --region=us-east4
+  fi
 
   export KUBECONFIG=$(pwd)/kubeconfig
   # copy the kubeconfig from the terraform state
@@ -274,4 +278,8 @@ terraform apply \
 rm ~/.kube/config
 
 # Remove ourselves from the whitelist
-gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST}" --region=us-east4
+if [[ "$ORIGINAL_WHITELIST" == "" ]]; then
+  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --region=us-east4
+else
+  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST}" --region=us-east4
+fi
