@@ -49,12 +49,8 @@ KUBECONFIG_VAR_LINE=""
 if [[ "$CLUSTERS" == *$DEPLOYMENT_ID-cluster* ]]; then
 
   export ORIGINAL_WHITELIST="$(gcloud beta container clusters describe $DEPLOYMENT_ID-cluster --region=us-east4  --format="value(masterAuthorizedNetworksConfig.cidrBlocks[].cidrBlock.list())")"
-  # Add our current IP to the whitelist
-  if [[ "$ORIGINAL_WHITELIST" == "" ]]; then
-    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="$(curl -4 icanhazip.com)/32" --region=us-east4
-  else
-    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST},$(curl -4 icanhazip.com)/32" --region=us-east4
-  fi
+  # Replace whitelist with our IP
+  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="$(curl -4 icanhazip.com)/32" --region=us-east4
 
   export KUBECONFIG=$(pwd)/kubeconfig
   # copy the kubeconfig from the terraform state
@@ -285,5 +281,3 @@ terraform apply \
 
 /tmp/tiller-releases-converter cleanup
 rm ~/.kube/config
-
-
