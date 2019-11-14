@@ -34,6 +34,15 @@ PLAN_FILE="tfplan"
 # run of this environment.
 
 export ORIGINAL_WHITELIST=""
+function finish {
+  # Remove ourselves from the whitelist
+  if [[ "$ORIGINAL_WHITELIST" == "" ]]; then
+    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --region=us-east4
+  else
+    gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST}" --region=us-east4
+  fi
+}
+trap finish EXIT
 # get list of clusters
 CLUSTERS="$(gcloud container clusters list --format="value(name)" | tr '\r\n' ' ')"
 KUBECONFIG_VAR_LINE=""
@@ -277,9 +286,4 @@ terraform apply \
 /tmp/tiller-releases-converter cleanup
 rm ~/.kube/config
 
-# Remove ourselves from the whitelist
-if [[ "$ORIGINAL_WHITELIST" == "" ]]; then
-  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --region=us-east4
-else
-  gcloud container clusters update $DEPLOYMENT_ID-cluster --enable-master-authorized-networks --master-authorized-networks="${ORIGINAL_WHITELIST}" --region=us-east4
-fi
+
