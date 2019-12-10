@@ -59,6 +59,14 @@ data "http" "slack_alert_url" {
   url = data.google_storage_object_signed_url.slack_alert_url.signed_url
 }
 
+data "google_storage_object_signed_url" "slack_alert_url_platform" {
+  bucket = "${var.deployment_id}-astronomer-secrets"
+  path   = "slack_alert_url_platform.txt"
+}
+
+data "http" "slack_alert_url_platform" {
+  url = data.google_storage_object_signed_url.slack_alert_url_platform.signed_url
+}
 #####
 # Email (SMTP)
 #####
