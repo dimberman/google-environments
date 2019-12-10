@@ -20,7 +20,7 @@ module "astronomer_cloud" {
   stripe_pk                = data.http.stripe_pk.body
   smtp_uri                 = data.http.smtp_uri.body
   slack_alert_url          = data.http.slack_alert_url.body
-  slack_alert_url_platform = data.http.slack_alert_url.body
+  slack_alert_url_platform = data.http.slack_alert_url_platform.body
   kubecost_token           = data.http.kubecost_token.body
   pagerduty_service_key    = data.http.pagerduty_service_key.body
 
