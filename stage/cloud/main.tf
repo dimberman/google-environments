@@ -1,7 +1,7 @@
 module "astronomer_cloud" {
 
   source  = "astronomer/astronomer-cloud/google"
-  version = "0.1.788"
+  version = "0.1.790"
 
   deployment_id          = var.deployment_id
   email                  = "steven@astronomer.io"
