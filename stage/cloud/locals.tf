@@ -37,7 +37,7 @@ nginx:
   requests:
     cpu: 500m
     memory: 1Gi
-  loadBalancerIP: ${module.astronomer_cloud.module.gcp.load_balancer_ip == "" ? "~" : module.astronomer_cloud.module.gcp.load_balancer_ip}
+  loadBalancerIP: ${module.astronomer_cloud.load_balancer_ip == "" ? "~" : module.astronomer_cloud.load_balancer_ip}
   # For cloud, the load balancer should be public
   privateLoadBalancer: false
   perserveSourceIP: true
@@ -258,7 +258,7 @@ astronomer:
   registry:
     gcs:
       enabled: true
-      bucket: "${module.astronomer_cloud.module.gcp.container_registry_bucket_name}"
+      bucket: "${module.astronomer_cloud.container_registry_bucket_name}"
 alertmanager:
   receivers:
     platform:
