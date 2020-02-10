@@ -69,7 +69,7 @@ astronomer:
       - name: ANALYTICS_TRACKING_ID
         value: "tH2XzkxCDpdC8Jvn8YroJ"
       - name: STRIPE_PK
-        value: "${data.http.stripe_pk.body}"
+        value: "${chomp(data.http.stripe_pk.body)}"
   houston:
     expireDeployments:
       enabled: true
@@ -90,14 +90,14 @@ astronomer:
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__SECRET_KEY
-        value: "${data.http.stripe_secret_key.body}"
+        value: "${chomp(data.http.stripe_secret_key.body)}"
       - name: STRIPE__ENABLED
         value: "true"
     config:
       publicSignups: true
       email:
         enabled: true
-        smtpUrl: "${data.http.smtp_uri.body}"
+        smtpUrl: "${chomp(data.http.smtp_uri.body)}"
       deployments:
         maxExtraAu: 1000
         maxPodAu: 100
@@ -264,7 +264,7 @@ alertmanager:
     platform:
       slack_configs:
       - channel: "${var.slack_alert_channel}"
-        api_url: "${data.http.slack_alert_url.body}"
+        api_url: "${chomp(data.http.slack_alert_url.body)}"
         title: "{{ .CommonAnnotations.summary }}"
         text: |-
           {{ range .Alerts }}
@@ -275,7 +275,7 @@ alertmanager:
             {{ end }}
           {{ end }}
       - channel: "${var.slack_alert_channel_platform}"
-        api_url: "${data.http.slack_alert_url_platform.body}"
+        api_url: "${chomp(data.http.slack_alert_url_platform.body)}"
         title: "{{ .CommonAnnotations.summary }}"
         text: |-
           {{ range .Alerts }}
@@ -286,7 +286,7 @@ alertmanager:
             {{ end }}
           {{ end }}
       pagerduty_configs:
-      - routing_key: "${data.http.pagerduty_service_key.body}"
+      - routing_key: "${chomp(data.http.pagerduty_service_key.body)}"
         description: "{{ .CommonAnnotations.summary }}"
     airflow:
       webhook_configs:
@@ -294,7 +294,7 @@ alertmanager:
         send_resolved: true
       slack_configs:
       - channel: "${var.slack_alert_channel}"
-        api_url: "${data.http.slack_alert_url.body}"
+        api_url: "${chomp(data.http.slack_alert_url.body)}"
         title: "{{ .CommonAnnotations.summary }}"
         text: |-
           {{ range .Alerts }}
