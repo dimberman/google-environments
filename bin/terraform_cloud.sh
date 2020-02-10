@@ -236,10 +236,6 @@ if [ $TF_AUTO_APPROVE ]; then
     -input=false \
     -out=$PLAN_FILE
 
-  # temporarily, we will disable deploying
-  # so I can avoid messing up staging.
-  exit 0
-
   terraform apply \
     -lock=false \
     -refresh=false \
