@@ -3,6 +3,7 @@ locals {
   db_instance_size      = "db-custom-4-15360"
   public_signups        = false
   max_worker_node_count = 12
+  base_domain           = "staging.astronomer.io"
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
   # different because we consider it is an acceptable variance, then it should be inserted into the below
@@ -12,7 +13,7 @@ locals {
 ---
 global:
   # Base domain for all subdomains exposed through ingress
-  baseDomain: staging.astronomer.io
+  baseDomain: "${local.base_domain}"
   tlsSecret: astronomer-tls
   istioEnabled: true
   # the platform components go in the non-multi tenant
