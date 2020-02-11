@@ -12,7 +12,7 @@ locals {
 ---
 global:
   # Base domain for all subdomains exposed through ingress
-  baseDomain: staging.astronomer.io
+  baseDomain: gcp0001.us-east4.astronomer.io
   tlsSecret: astronomer-tls
   istioEnabled: true
   # the platform components go in the non-multi tenant

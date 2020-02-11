@@ -14,7 +14,7 @@ module "astronomer_cloud" {
   do_not_create_a_record = false
   lets_encrypt           = true
 
-  kube_version_gke       = "1.14"
+  kube_version_gke       = "1.14.10-gke.21"
 
   base_domain                  = "steven-google-development.com"
   dns_managed_zone             = "steven-zone"
