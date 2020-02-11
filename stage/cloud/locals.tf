@@ -1,7 +1,7 @@
 locals {
   worker_node_size      = "n1-standard-16"
   db_instance_size      = "db-custom-4-15360"
-  public_signups        = true
+  public_signups        = false
   max_worker_node_count = 12
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
@@ -99,7 +99,7 @@ astronomer:
       - name: STRIPE__ENABLED
         value: "true"
     config:
-      publicSignups: "${local.public_signups}"
+      publicSignups: ${local.public_signups}
       email:
         enabled: true
         smtpUrl: "${chomp(data.http.smtp_uri.body)}"
