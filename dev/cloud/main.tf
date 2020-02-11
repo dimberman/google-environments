@@ -16,7 +16,7 @@ module "astronomer_cloud" {
 
   kube_version_gke       = "1.14.10-gke.21"
 
-  base_domain                  = "steven-google-development.com"
+  base_domain                  = "dev.steven-google-development.com"
   dns_managed_zone             = "steven-zone"
   create_dynamic_pods_nodepool = true
 
