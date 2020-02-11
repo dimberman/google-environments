@@ -6,6 +6,7 @@ locals {
   helm_values      = <<EOF
 ---
 global:
+  postgresqlEnabled: false
   # Base domain for all subdomains exposed through ingress
   baseDomain: dev.steven-google-development.com
   tlsSecret: astronomer-tls

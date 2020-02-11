@@ -195,6 +195,8 @@ astronomer:
                 pod.affinity.update({})
           pgbouncer:
             resultBackendPoolSize: 10
+            podDisruptionBudget:
+              enabled: false
           redis:
             safeToEvict: true
           webserver:
