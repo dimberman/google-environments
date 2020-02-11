@@ -155,7 +155,7 @@ astronomer:
         astroUnit:
           price: 10
         chart:
-          version: 0.11.1
+          version: 0.11.2
         images:
           - version: 1.10.7
             channel: stable
@@ -170,6 +170,7 @@ astronomer:
             resultBackendConnection:
               sslmode: disable
           scheduler:
+            safeToEvict: true
             airflowLocalSettings: |
               from airflow.contrib.kubernetes.pod import Pod
               from airflow.configuration import conf
@@ -194,12 +195,15 @@ astronomer:
                 pod.affinity.update({})
           pgbouncer:
             resultBackendPoolSize: 10
+          redis:
+            safeToEvict: true
           webserver:
             initialDelaySeconds: 15
             timeoutSeconds: 30
             failureThreshold: 60
             periodSeconds: 8
           workers:
+            safeToEvict: true
             keda:
               enabled: false
             resources:
