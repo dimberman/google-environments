@@ -177,16 +177,16 @@ astronomer:
                 if 'airflow-worker' in pod.labels.keys() or \
                         conf.get('core', 'EXECUTOR') == "KubernetesExecutor":
                     extra_labels["kubernetes-executor"] = "True"
+                    # Ensure our entrypoint is respected
+                    if not pod.args:
+                      pod.args = []
+                    pod.args = pod.cmds + pod.args
+                    pod.cmds = ["tini", "--", "/entrypoint"]
                 else:
                     extra_labels["kubernetes-pod-operator"] = "True"
                 pod.labels.update(extra_labels)
                 pod.tolerations += []
                 pod.affinity.update({})
-                # Ensure our entrypoint is respected
-                if not pod.args:
-                  pod.args = []
-                pod.args = pod.cmds + pod.args
-                pod.cmds = ["tini", "--", "/entrypoint"]
           pgbouncer:
             resultBackendPoolSize: 10
             resources:

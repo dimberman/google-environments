@@ -14,6 +14,8 @@ module "astronomer_cloud" {
   do_not_create_a_record = false
   lets_encrypt           = true
 
+  kube_version_gke       = "1.14"
+
   base_domain                  = "steven-google-development.com"
   dns_managed_zone             = "steven-zone"
   create_dynamic_pods_nodepool = true
