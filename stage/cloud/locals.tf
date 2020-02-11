@@ -123,18 +123,22 @@ astronomer:
             au:
               default: 2
               limit: 30
+              request: 0.2
           - name: pgbouncer
             au:
               default: 2
               limit: 2
+              request: 0.2
           - name: flower
             au:
               default: 2
               limit: 2
+              request: 0.2
           - name: redis
             au:
               default: 2
               limit: 2
+              request: 0.2
           - name: workers
             au:
               default: 10
@@ -190,37 +194,6 @@ astronomer:
                 pod.affinity.update({})
           pgbouncer:
             resultBackendPoolSize: 10
-            resources:
-              requests:
-                cpu: 20m
-                memory: 64Mi
-              limits:
-                cpu: 250m
-                memory: 256Mi
-          redis:
-            resources:
-              requests:
-                cpu: 20m
-                memory: 64Mi
-              limits:
-                cpu: 250m
-                memory: 256Mi
-          flower:
-            resources:
-              requests:
-                cpu: 20m
-                memory: 64Mi
-              limits:
-                cpu: 250m
-                memory: 512Mi
-          statsd:
-            resources:
-              requests:
-                cpu: 20m
-                memory: 64Mi
-              limits:
-                cpu: 1000m
-                memory: 256Mi
           webserver:
             initialDelaySeconds: 15
             timeoutSeconds: 30
