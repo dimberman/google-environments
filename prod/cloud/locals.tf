@@ -12,6 +12,8 @@ locals {
   helm_values = <<EOF
 ---
 global:
+  istio:
+    enabled: true
   # Base domain for all subdomains exposed through ingress
   baseDomain: "${local.base_domain}"
   tlsSecret: astronomer-tls

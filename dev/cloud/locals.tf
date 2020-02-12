@@ -6,6 +6,8 @@ locals {
   helm_values      = <<EOF
 ---
 global:
+  istio:
+    enabled: true
   postgresqlEnabled: false
   # Base domain for all subdomains exposed through ingress
   baseDomain: dev.steven-google-development.com
@@ -67,6 +69,35 @@ elasticsearch:
       requests:
         cpu: "100m"
 astronomer:
+  images:
+    commander:
+      repository: astronomerinc/ap-commander
+      tag: latest
+      pullPolicy: Always
+    registry:
+      repository: astronomerinc/ap-registry
+      tag: latest
+      pullPolicy: Always
+    houston:
+      repository: astronomerinc/ap-houston-api
+      tag: latest
+      pullPolicy: Always
+    astroUI:
+      repository: astronomerinc/ap-astro-ui
+      tag: latest
+      pullPolicy: Always
+    dbBootstrapper:
+      repository: astronomerinc/ap-db-bootstrapper
+      tag: latest
+      pullPolicy: Always
+    cliInstall:
+      repository: astronomerinc/ap-cli-install
+      tag: latest
+      pullPolicy: Always
+    prisma:
+      repository: astronomerinc/ap-prisma
+      tag: latest
+      pullPolicy: Always
   houston:
     resources:
       requests:
@@ -94,7 +125,7 @@ astronomer:
       - name: STRIPE__ENABLED
         value: "false"
     config:
-      publicSignups: "${local.public_signups}"
+      publicSignups: ${local.public_signups}
       email:
         enabled: true
         smtpUrl: "${chomp(data.http.smtp_uri.body)}"
