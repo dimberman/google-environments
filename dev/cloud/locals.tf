@@ -1,8 +1,8 @@
 locals {
   worker_node_size = "n1-standard-4"
   db_instance_size = "db-custom-4-15360"
-  public_signups   = false
-  max_worker_count = 5
+  public_signups   = true
+  max_worker_node_count = 5
   helm_values      = <<EOF
 ---
 global:

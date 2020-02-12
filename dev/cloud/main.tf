@@ -23,6 +23,7 @@ module "astronomer_cloud" {
   dns_managed_zone             = "steven-zone"
   create_dynamic_pods_nodepool = true
 
-  worker_node_size = local.worker_node_size
-  db_instance_size = local.db_instance_size
+  worker_node_size      = local.worker_node_size
+  max_worker_node_count = local.max_worker_node_count
+  db_instance_size      = local.db_instance_size
 }
