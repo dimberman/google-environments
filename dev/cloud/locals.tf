@@ -119,7 +119,7 @@ astronomer:
         value: "true"
       - name: ANALYTICS__WRITE_KEY
         # not a secret
-        value: "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
+        value: "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__ENABLED

@@ -3,6 +3,8 @@ locals {
   db_instance_size      = "db-custom-4-15360"
   public_signups        = false
   max_worker_node_count = 12
+  # not secret
+  segment_write_key     = "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
   base_domain           = "staging.astronomer.io"
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
@@ -93,8 +95,7 @@ astronomer:
       - name: ANALYTICS__ENABLED
         value: "true"
       - name: ANALYTICS__WRITE_KEY
-        # not a secret
-        value: "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
+        value: "${local.segment_write_key}"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__SECRET_KEY
