@@ -1,11 +1,13 @@
 locals {
   worker_node_size = "n1-standard-4"
   db_instance_size = "db-custom-4-15360"
-  public_signups   = false
-  max_worker_count = 10
+  public_signups   = true
+  max_worker_node_count = 5
   helm_values      = <<EOF
 ---
 global:
+  istio:
+    enabled: true
   postgresqlEnabled: false
   # Base domain for all subdomains exposed through ingress
   baseDomain: dev.steven-google-development.com
@@ -67,6 +69,35 @@ elasticsearch:
       requests:
         cpu: "100m"
 astronomer:
+  images:
+    commander:
+      repository: astronomerinc/ap-commander
+      tag: latest
+      pullPolicy: Always
+    registry:
+      repository: astronomerinc/ap-registry
+      tag: latest
+      pullPolicy: Always
+    houston:
+      repository: astronomerinc/ap-houston-api
+      tag: latest
+      pullPolicy: Always
+    astroUI:
+      repository: astronomerinc/ap-astro-ui
+      tag: latest
+      pullPolicy: Always
+    dbBootstrapper:
+      repository: astronomerinc/ap-db-bootstrapper
+      tag: latest
+      pullPolicy: Always
+    cliInstall:
+      repository: astronomerinc/ap-cli-install
+      tag: latest
+      pullPolicy: Always
+    prisma:
+      repository: astronomerinc/ap-prisma
+      tag: latest
+      pullPolicy: Always
   houston:
     resources:
       requests:
@@ -88,15 +119,16 @@ astronomer:
         value: "true"
       - name: ANALYTICS__WRITE_KEY
         # not a secret
-        value: "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
+        value: "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__ENABLED
         value: "false"
     config:
-      publicSignups: "${local.public_signups}"
+      publicSignups: ${local.public_signups}
       email:
-        enabled: false
+        enabled: true
+        smtpUrl: "${chomp(data.http.smtp_uri.body)}"
       deployments:
         maxExtraAu: 1000
         maxPodAu: 100
