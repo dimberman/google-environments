@@ -116,10 +116,14 @@ astronomer:
       canary: false
     env:
       - name: ANALYTICS__ENABLED
+        # takes care of enabling analytics for Houston
         value: "true"
       - name: ANALYTICS__WRITE_KEY
-        # not a secret
+        # not a secret, key for Houston
         value: "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
+      - name: ANALYTICS__UI_WRITE_KEY
+        # not a secret, key for UI
+        value: "QkDhkZKNUsfq1ijTAKiTUTZAdwY0FTba"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__ENABLED
