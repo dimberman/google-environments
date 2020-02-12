@@ -2,7 +2,7 @@ locals {
   worker_node_size      = "n1-standard-16"
   db_instance_size      = "db-custom-10-61440"
   public_signups        = true
-  max_worker_node_count = 60
+  max_worker_node_count = 80
   # not secret
   segment_write_key     = "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
   base_domain           = "gcp0001.us-east4.astronomer.io"
