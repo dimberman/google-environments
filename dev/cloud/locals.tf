@@ -2,7 +2,7 @@ locals {
   worker_node_size = "n1-standard-4"
   db_instance_size = "db-custom-4-15360"
   public_signups   = false
-  max_worker_count = 10
+  max_worker_count = 5
   helm_values      = <<EOF
 ---
 global:
@@ -96,7 +96,8 @@ astronomer:
     config:
       publicSignups: "${local.public_signups}"
       email:
-        enabled: false
+        enabled: true
+        smtpUrl: "${chomp(data.http.smtp_uri.body)}"
       deployments:
         maxExtraAu: 1000
         maxPodAu: 100

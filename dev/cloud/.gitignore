@@ -6,3 +6,4 @@ helm.astronomer.io
 open.sh
 temp
 istio/*
+astronomer/*
