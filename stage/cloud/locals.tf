@@ -4,7 +4,8 @@ locals {
   public_signups        = false
   max_worker_node_count = 12
   # not secret
-  segment_write_key     = "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
+  houston_segment_write_key = "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
+  orbit_segment_write_key = "QkDhkZKNUsfq1ijTAKiTUTZAdwY0FTba"
   base_domain           = "staging.astronomer.io"
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
@@ -76,8 +77,9 @@ elasticsearch:
 astronomer:
   orbit:
     env:
-      - name: ANALYTICS_TRACKING_ID
-        value: "tH2XzkxCDpdC8Jvn8YroJ"
+      - name: ANALYTICS__UI_WRITE_KEY
+        # Not a secret, key for Orbit analytics. Analytics enabled if this has a value.
+        value: "${local.orbit_segment_write_key}"
       - name: STRIPE_PK
         value: "${chomp(data.http.stripe_pk.body)}"
   houston:
@@ -92,10 +94,9 @@ astronomer:
       enabled: true
       canary: false
     env:
-      - name: ANALYTICS__ENABLED
-        value: "true"
       - name: ANALYTICS__WRITE_KEY
-        value: "${local.segment_write_key}"
+        # Not a secret, key for Houston analytics. Analytics enabled if this has a value.
+        value: "${local.houston_segment_write_key}"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
       - name: STRIPE__SECRET_KEY
