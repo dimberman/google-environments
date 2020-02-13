@@ -99,10 +99,10 @@ astronomer:
       repository: astronomerinc/ap-prisma
       tag: latest
       pullPolicy: Always
-  orbit:
+  astroUI:
     env:
-      - name: ANALYTICS__UI_WRITE_KEY
-        # Not a secret, key for Orbit analytics. Analytics enabled if this has a value.
+      - name: ANALYTICS__WRITE_KEY
+        # not a secret, key for UI
         value: "QkDhkZKNUsfq1ijTAKiTUTZAdwY0FTba"
   houston:
     resources:
@@ -122,7 +122,7 @@ astronomer:
       canary: false
     env:
       - name: ANALYTICS__WRITE_KEY
-        # Not a secret, key for Houston analytics. Analytics enabled if this has a value.
+        # not a secret, key for Houston
         value: "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
