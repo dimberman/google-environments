@@ -90,7 +90,7 @@ astronomer:
       canary: false
     upgradeDeployments:
       enabled: true
-      canary: true
+      canary: false
     env:
       - name: ANALYTICS__ENABLED
         value: "true"
