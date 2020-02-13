@@ -6,7 +6,7 @@ locals {
   helm_values      = <<EOF
 ---
 global:
-  kedaEnabled: false
+  kedaEnabled: true
   istio:
     enabled: true
   postgresqlEnabled: false
@@ -258,7 +258,7 @@ astronomer:
             periodSeconds: 8
           workers:
             keda:
-              enabled: false
+              enabled: true
             resources:
               limits:
                 ephemeral-storage: "10Gi"
