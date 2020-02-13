@@ -1,4 +1,4 @@
 variable "kubeconfig_path" {
-  default = ""
+  default = "./kubeconfig"
   type    = string
 }
