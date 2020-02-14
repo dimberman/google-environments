@@ -68,10 +68,10 @@ elasticsearch:
     heapMemory: 2g
     resources:
       limits:
-        cpu:     4
+        cpu:     6
         memory:  6Gi
       requests:
-        cpu:     100m
+        cpu:     200m
         memory:  2Gi
     replicas: 8
 astronomer:
