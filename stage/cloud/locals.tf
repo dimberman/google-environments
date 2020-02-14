@@ -14,6 +14,7 @@ locals {
   helm_values           = <<EOF
 ---
 global:
+  kedaEnabled: false
   istio:
     enabled: true
   # Base domain for all subdomains exposed through ingress
