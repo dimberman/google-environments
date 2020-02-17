@@ -120,6 +120,8 @@ astronomer:
       enabled: true
       enabled: true
       canary: false
+    updateCheck:
+      enabled: true
     env:
       - name: ANALYTICS__WRITE_KEY
         # not a secret, key for Houston
