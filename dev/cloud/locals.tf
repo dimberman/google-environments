@@ -70,6 +70,12 @@ elasticsearch:
       requests:
         cpu: "100m"
 astronomer:
+  orbit:
+    env:
+      - name: ANALYTICS_TRACKING_ID
+        value: "tH2XzkxCDpdC8Jvn8YroJ"
+      - name: STRIPE_PK
+        value: "${chomp(data.http.stripe_pk.body)}"
   images:
     commander:
       repository: astronomerinc/ap-commander
@@ -123,13 +129,17 @@ astronomer:
     updateCheck:
       enabled: true
     env:
+      - name: ANALYTICS__ENABLED
+        value: "true"
       - name: ANALYTICS__WRITE_KEY
         # not a secret, key for Houston
         value: "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
       - name: AUTH__LOCAL__ENABLED
         value: "true"
+      - name: STRIPE__SECRET_KEY
+        value: "${chomp(data.http.stripe_secret_key.body)}"
       - name: STRIPE__ENABLED
-        value: "false"
+        value: "true"
     config:
       publicSignups: ${local.public_signups}
       email:
