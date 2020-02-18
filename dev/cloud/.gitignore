@@ -8,3 +8,4 @@ temp
 istio/*
 astronomer/*
 astronomer
+*.swp

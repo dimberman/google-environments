@@ -70,12 +70,6 @@ elasticsearch:
       requests:
         cpu: "100m"
 astronomer:
-  orbit:
-    env:
-      - name: ANALYTICS_TRACKING_ID
-        value: "tH2XzkxCDpdC8Jvn8YroJ"
-      - name: STRIPE_PK
-        value: "${chomp(data.http.stripe_pk.body)}"
   images:
     commander:
       repository: astronomerinc/ap-commander
@@ -107,6 +101,10 @@ astronomer:
       pullPolicy: Always
   astroUI:
     env:
+      - name: ANALYTICS_TRACKING_ID
+        value: "tH2XzkxCDpdC8Jvn8YroJ"
+      - name: STRIPE_PK
+        value: "${chomp(data.http.stripe_pk.body)}"
       - name: ANALYTICS__WRITE_KEY
         # not a secret, key for UI
         value: "QkDhkZKNUsfq1ijTAKiTUTZAdwY0FTba"
