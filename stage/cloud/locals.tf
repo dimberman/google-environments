@@ -76,7 +76,7 @@ elasticsearch:
         memory:  2Gi
     replicas: 8
 astronomer:
-  orbit:
+  astroUI:
     env:
       - name: ANALYTICS_TRACKING_ID
         value: "tH2XzkxCDpdC8Jvn8YroJ"

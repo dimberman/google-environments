@@ -5,3 +5,5 @@ kubeconfig*
 helm.astronomer.io
 open.sh
 temp
+istio/*
+cleanup.sh
