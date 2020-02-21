@@ -18,7 +18,7 @@ module "astronomer_cloud" {
 
   astronomer_chart_git_repository = "https://github.com/astronomer/astronomer.git"
   astronomer_version_git_checkout = "release-0.12"
-  astronomer_version              = "0.12.0-alpha.2"
+  astronomer_version              = "0.12.0-alpha.1"
 
   astronomer_helm_values = local.helm_values
 
