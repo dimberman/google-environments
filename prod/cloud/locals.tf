@@ -4,8 +4,8 @@ locals {
   public_signups        = true
   max_worker_node_count = 90
   # not secret
-  segment_write_key     = "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
-  base_domain           = "gcp0001.us-east4.astronomer.io"
+  segment_write_key = "d8f1dqq4uXo24anKBADSn8MFqgTq32Rx"
+  base_domain       = "gcp0001.us-east4.astronomer.io"
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
   # different because we consider it is an acceptable variance, then it should be inserted into the below
@@ -17,6 +17,7 @@ global:
   kedaEnabled: false
   istio:
     enabled: true
+  postgresqlEnabled: false
   # Base domain for all subdomains exposed through ingress
   baseDomain: "${local.base_domain}"
   tlsSecret: astronomer-tls
@@ -159,7 +160,7 @@ astronomer:
         astroUnit:
           price: 10
         chart:
-          version: 0.11.2
+          version: 0.12.0-alpha.2
         images:
           - version: 1.10.7
             channel: stable

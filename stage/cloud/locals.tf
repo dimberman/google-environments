@@ -4,19 +4,20 @@ locals {
   public_signups        = false
   max_worker_node_count = 12
   # not secret
-  segment_write_key     = "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
-  base_domain           = "staging.astronomer.io"
+  segment_write_key = "vNeuM2RjMa71fK1t2Bg7jac7UI7dVHT5"
+  base_domain       = "staging.astronomer.io"
   # It is important for the validity of testing a release on stage cloud that stage and prod's configurations
   # are as close to identical as we can get them. If something has to be different / we choose for it to be
   # different because we consider it is an acceptable variance, then it should be inserted into the below
   # values using templating. CI will run the script bin/compare_stage_and_prod_cloud.sh to assert that the
   # helm_values here matches Prod exactly. For example, take a look at public_signups.
-  helm_values           = <<EOF
+  helm_values = <<EOF
 ---
 global:
   kedaEnabled: false
   istio:
     enabled: true
+  postgresqlEnabled: false
   # Base domain for all subdomains exposed through ingress
   baseDomain: "${local.base_domain}"
   tlsSecret: astronomer-tls
@@ -159,7 +160,7 @@ astronomer:
         astroUnit:
           price: 10
         chart:
-          version: 0.11.2
+          version: 0.12.0-alpha.2
         images:
           - version: 1.10.7
             channel: stable
