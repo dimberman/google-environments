@@ -74,7 +74,7 @@ elasticsearch:
       requests:
         cpu:     200m
         memory:  2Gi
-    replicas: 8
+    replicas: 7
 astronomer:
   astroUI:
     env:
